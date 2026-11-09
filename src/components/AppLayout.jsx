@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { NavLink, Navigate, Outlet, useLocation, useNavigate } from "react-router-dom";
 import { request, getSession, logout } from "../http.js";
 import LegalNote from "./LegalNote.jsx";
-import { isAdmin } from "../helpers.js";
 import "./AppLayout.css";
 
 const ICONS = {
@@ -82,6 +81,7 @@ export default function AppLayout() {
 
   const [user, setUser] = useState(null);
   const [profile, setProfile] = useState(null);
+  const [admin, setAdmin] = useState(false);
   const [ready, setReady] = useState(false);
 
   const allowed = Boolean(token && session && session.accountStatus === "ACTIVA");
@@ -90,13 +90,16 @@ export default function AppLayout() {
     if (!allowed) return;
     let alive = true;
     (async () => {
-      const [u, p] = await Promise.allSettled([
+      const [u, p, a] = await Promise.allSettled([
         request(`/api/users/${session.id}`),
         // Ruta asumida; si todavía no existe, se toma como "sin perfil".
         request(`/api/risk-profiles/user/${session.id}`),
+        // El backend no informa el rol en /api/users: si /api/admin responde, la cuenta es admin.
+        request("/api/admin/users"),
       ]);
       if (!alive) return;
       if (u.status === "fulfilled") setUser(u.value);
+      setAdmin(a.status === "fulfilled");
       setProfile(p.status === "fulfilled" && p.value ? p.value : null);
       setReady(true);
     })();
@@ -109,7 +112,7 @@ export default function AppLayout() {
   if (!token || !session) return <Navigate to="/login" replace />;
   if (session.accountStatus !== "ACTIVA") return <Navigate to="/pendiente" replace />;
 
-  const nav = isAdmin(user) ? [...NAV, ADMIN_ITEM] : NAV;
+  const nav = admin ? [...NAV, ADMIN_ITEM] : NAV;
   const name = displayName(user, session.email);
   const isHome = location.pathname === "/app" || location.pathname === "/app/";
 
@@ -179,7 +182,7 @@ export default function AppLayout() {
           </div>
         </header>
 
-        {ready ? <Outlet context={{ user, profile, reloadProfile }} /> : <p className="app-loading">Cargando…</p>}
+        {ready ? <Outlet context={{ user, profile, admin, reloadProfile }} /> : <p className="app-loading">Cargando…</p>}
 
         <LegalNote />
       </section>

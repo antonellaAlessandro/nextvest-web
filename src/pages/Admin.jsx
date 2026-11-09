@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Navigate, useOutletContext } from "react-router-dom";
 import { request, getSession } from "../http.js";
-import { initials, isAdmin } from "../helpers.js";
+import { initials } from "../helpers.js";
 import "./Admin.css";
 
 const STATUS = {
@@ -51,7 +51,7 @@ function Line({ label, value }) {
 }
 
 export default function Admin() {
-  const { user } = useOutletContext();
+  const { admin } = useOutletContext();
   const myId = getSession()?.id;
 
   const [users, setUsers] = useState([]);
@@ -66,7 +66,6 @@ export default function Admin() {
   const [saving, setSaving] = useState(false);
   const [actionError, setActionError] = useState("");
 
-  const admin = isAdmin(user);
 
   useEffect(() => {
     if (!admin) return;
