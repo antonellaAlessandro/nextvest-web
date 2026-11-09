@@ -1,0 +1,97 @@
+.pf-card {
+  max-width: 680px;
+  padding: 26px 28px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 22px;
+}
+
+.pf-kicker {
+  margin: 0;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.pf-title {
+  margin: 6px 0 0;
+  font-size: 28px;
+  font-weight: 300;
+}
+
+.pf-question {
+  margin: 8px 0 0;
+  font-size: 20px;
+  font-weight: 300;
+  line-height: 1.4;
+}
+
+.pf-text {
+  margin: 12px 0 0;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--text-muted);
+}
+
+.pf-meta {
+  margin: 14px 0 0;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.pf-progress {
+  height: 3px;
+  margin-bottom: 18px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+}
+
+.pf-progress span {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #bd88b8, #e6bde2);
+  transition: width 0.25s ease;
+}
+
+.pf-options {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.pf-opt {
+  padding: 16px 18px;
+  text-align: left;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 15px;
+  line-height: 1.45;
+  cursor: pointer;
+}
+
+.pf-opt:hover {
+  border-color: rgba(255, 255, 255, 0.35);
+}
+
+.pf-opt.on {
+  border-color: rgba(217, 168, 212, 0.85);
+  background: rgba(217, 168, 212, 0.16);
+}
+
+.pf-error {
+  margin: 14px 0 0;
+  font-size: 13px;
+  color: var(--down);
+}
+
+.pf-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 24px;
+}

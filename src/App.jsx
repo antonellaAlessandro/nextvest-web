@@ -7,6 +7,7 @@ import AppLayout from "./components/AppLayout.jsx";
 import Dashboard from "./pages/Dashboard.jsx";
 import Market from "./pages/Market.jsx";
 import Glossary from "./pages/Glossary.jsx";
+import Profile from "./pages/Profile.jsx";
 
 // Pantalla provisoria para las secciones que todavía no están armadas.
 function Placeholder({ title }) {
@@ -32,7 +33,7 @@ export default function App() {
         <Route path="mercado" element={<Market />} />
         <Route path="actividad" element={<Placeholder />} />
         <Route path="cartera" element={<Placeholder />} />
-        <Route path="perfil" element={<Placeholder />} />
+        <Route path="perfil" element={<Profile />} />
         <Route path="glosario" element={<Glossary />} />
       </Route>
 

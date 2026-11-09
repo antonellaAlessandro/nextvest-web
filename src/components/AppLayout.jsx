@@ -106,6 +106,15 @@ export default function AppLayout() {
   const name = displayName(user, session.email);
   const isHome = location.pathname === "/app" || location.pathname === "/app/";
 
+  // Se llama después del test para que toda la app vea el perfil nuevo.
+  async function reloadProfile() {
+    try {
+      setProfile(await request(`/api/risk-profiles/user/${session.id}`));
+    } catch {
+      setProfile(null);
+    }
+  }
+
   function handleLogout() {
     logout();
     navigate("/login", { replace: true });
@@ -163,7 +172,7 @@ export default function AppLayout() {
           </div>
         </header>
 
-        {ready ? <Outlet context={{ user, profile }} /> : <p className="app-loading">Cargando…</p>}
+        {ready ? <Outlet context={{ user, profile, reloadProfile }} /> : <p className="app-loading">Cargando…</p>}
 
         <LegalNote />
       </section>
