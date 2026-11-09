@@ -8,6 +8,8 @@ import Dashboard from "./pages/Dashboard.jsx";
 import Market from "./pages/Market.jsx";
 import Glossary from "./pages/Glossary.jsx";
 import Profile from "./pages/Profile.jsx";
+import Portfolio from "./pages/Portfolio.jsx";
+import Activity from "./pages/Activity.jsx";
 
 // Pantalla provisoria para las secciones que todavía no están armadas.
 function Placeholder({ title }) {
@@ -31,8 +33,8 @@ export default function App() {
       <Route path="/app" element={<AppLayout />}>
         <Route index element={<Dashboard />} />
         <Route path="mercado" element={<Market />} />
-        <Route path="actividad" element={<Placeholder />} />
-        <Route path="cartera" element={<Placeholder />} />
+        <Route path="actividad" element={<Activity />} />
+        <Route path="cartera" element={<Portfolio />} />
         <Route path="perfil" element={<Profile />} />
         <Route path="glosario" element={<Glossary />} />
       </Route>
