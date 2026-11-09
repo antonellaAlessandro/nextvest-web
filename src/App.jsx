@@ -6,6 +6,7 @@ import Pending from "./pages/Pending.jsx";
 import AppLayout from "./components/AppLayout.jsx";
 import Dashboard from "./pages/Dashboard.jsx";
 import Glossary from "./pages/Glossary.jsx";
+import Market from "./pages/Market.jsx";
 
 function Pantalla({ titulo }) {
   return (
@@ -32,6 +33,7 @@ export default function App() {
         <Route path="cartera" element={<Pantalla titulo="Cartera" />} />
         <Route path="perfil" element={<Pantalla titulo="Test de perfil de inversor" />} />
         <Route path="glosario" element={<Glossary />} />
+        <Route path="mercado" element={<Market />} />
       </Route>
 
       <Route path="*" element={<Pantalla titulo="Página no encontrada" />} />

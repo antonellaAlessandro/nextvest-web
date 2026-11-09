@@ -23,6 +23,11 @@ export const GLOSSARY = [
     def: "Un fondo que reúne muchos activos y se compra como si fuera una sola acción. Por ejemplo, SPY sigue a las 500 empresas más grandes de Estados Unidos.",
   },
   {
+    id: "fci",
+    term: "FCI",
+    def: "Fondo Común de Inversión. Junta el dinero de muchas personas y lo administra un equipo profesional, que lo reparte entre distintos activos. Comprás una parte del fondo, no los activos por separado.",
+  },
+  {
     id: "perfil",
     term: "Perfil de inversor",
     def: "El resultado de un test corto que indica cuánto riesgo estás dispuesto a asumir. NextVest lo usa para avisarte cuando un instrumento no corresponde a tu perfil.",

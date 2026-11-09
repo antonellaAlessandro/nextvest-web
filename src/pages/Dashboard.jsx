@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { Link, useOutletContext } from "react-router-dom";
 import { request, getSession } from "../http.js";
 import Term from "../components/Term.jsx";
+import { money, pct, tone, asList, initials, normalizeInstrument, normalizePosition } from "../helpers.js";
 import "./Dashboard.css";
 
 /* El backend todavía no guarda historial de la cartera.
@@ -9,55 +10,7 @@ import "./Dashboard.css";
    Pasalo a false para mostrar el estado vacío. */
 const SHOW_DEMO_CHART = true;
 
-const nf = new Intl.NumberFormat("es-AR", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-const money = (n) => {
-  const v = Number(n) || 0;
-  return `${v < 0 ? "−" : ""}$ ${nf.format(Math.abs(v))}`;
-};
-const pct = (n) => `${n > 0 ? "+" : n < 0 ? "−" : ""}${nf.format(Math.abs(n))} %`;
-const tone = (n) => (n > 0 ? "up" : n < 0 ? "down" : "");
 
-/* ---------- Adaptadores ----------
-   Si algún nombre de campo del backend es distinto, se corrige acá y nada más. */
-
-const TYPE_LABEL = {
-  STOCK: { label: "Acción", term: "accion" },
-  ACCION: { label: "Acción", term: "accion" },
-  CEDEAR: { label: "CEDEAR", term: "cedear" },
-  ETF: { label: "ETF", term: "etf" },
-};
-
-function normalizeInstrument(i) {
-  const type = TYPE_LABEL[String(i.type ?? i.instrumentType ?? "").toUpperCase()];
-  return {
-    id: i.id,
-    ticker: i.ticker ?? i.symbol ?? i.code ?? "—",
-    name: i.name ?? i.companyName ?? "",
-    type,
-    price: Number(i.currentPrice ?? i.price ?? 0),
-  };
-}
-
-function normalizePosition(p) {
-  const ins = p.instrument ?? {};
-  const qty = Number(p.quantity ?? p.units ?? 0);
-  const price = Number(p.currentPrice ?? ins.currentPrice ?? ins.price ?? 0);
-  const avg = Number(p.averageBuyPrice ?? p.averagePrice ?? p.avgPrice ?? p.purchasePrice ?? 0);
-  const value = Number(p.currentValue ?? p.totalValue ?? qty * price);
-  const cost = avg > 0 ? avg * qty : 0;
-  return {
-    id: p.id ?? ins.id,
-    ticker: p.ticker ?? p.symbol ?? ins.ticker ?? ins.symbol ?? "—",
-    name: p.instrumentName ?? ins.name ?? "",
-    qty,
-    value,
-    cost,
-    change: cost > 0 ? ((value - cost) / cost) * 100 : null,
-  };
-}
-
-const asList = (d, key) => (Array.isArray(d) ? d : d?.[key] ?? []);
-const initials = (t) => String(t).slice(0, 2).toUpperCase();
 
 /* ---------- Gráfico (datos de ejemplo) ---------- */
 
@@ -300,7 +253,7 @@ export default function Dashboard() {
                     <b className="num">{money(p.value)}</b>
                     {p.change !== null && <span className={`num ${tone(p.change)}`}>{pct(p.change)}</span>}
                   </div>
-                  <Link className="dash-act" to={`/app/mercado?instrumento=${p.id}&accion=vender`}>Vender</Link>
+                  <Link className="dash-act" to={`/app/mercado?${p.instrumentId ? `instrumento=${p.instrumentId}` : `ticker=${p.ticker}`}&accion=vender`}>Vender</Link>
                 </div>
               ))}
               <Link className="dash-more" to="/app/cartera">Ver cartera completa</Link>

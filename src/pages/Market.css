@@ -1,0 +1,289 @@
+.mk {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.mk-muted {
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+.mk-error {
+  padding: 12px 16px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 122, 138, 0.4);
+  background: rgba(255, 122, 138, 0.08);
+  font-size: 14px;
+}
+
+.mk-grid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 16px;
+  align-items: start;
+}
+
+.mk-card,
+.mk-panel {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  padding: 18px 22px;
+}
+
+.mk-card h3,
+.mk-panel h3 {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 400;
+}
+
+.mk-card > h3 {
+  margin-bottom: 6px;
+}
+
+/* Lista de instrumentos */
+.mk-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 8px;
+  margin: 0 -8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 14px;
+}
+
+.mk-row:last-child {
+  border-bottom: 0;
+}
+
+.mk-row.sel {
+  background: rgba(217, 168, 212, 0.1);
+}
+
+.mk-tile {
+  width: 34px;
+  height: 34px;
+  flex: none;
+  display: grid;
+  place-items: center;
+  border-radius: 11px;
+  background: rgba(217, 168, 212, 0.14);
+  color: #efd6ec;
+  font-size: 12px;
+}
+
+.mk-nm {
+  flex: 1;
+  min-width: 0;
+}
+
+.mk-nm b {
+  display: block;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.3;
+}
+
+.mk-sub {
+  display: block;
+  font-size: 13px;
+  line-height: 1.3;
+  color: var(--text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.mk-price {
+  flex: none;
+  font-size: 15px;
+  font-weight: 400;
+  white-space: nowrap;
+}
+
+.mk-act {
+  flex: none;
+  padding: 7px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: transparent;
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.mk-act:hover {
+  border-color: rgba(255, 255, 255, 0.6);
+}
+
+.mk-act.buy {
+  background: rgba(217, 168, 212, 0.16);
+  border-color: rgba(217, 168, 212, 0.55);
+  color: #f3dcf0;
+}
+
+.mk-act.buy:hover {
+  background: rgba(217, 168, 212, 0.26);
+  border-color: rgba(217, 168, 212, 0.85);
+}
+
+/* Panel de orden */
+.mk-panel {
+  position: sticky;
+  top: 28px;
+}
+
+.mk-panel-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.mk-panel-head p {
+  margin: 2px 0 0;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.mk-close {
+  flex: none;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text);
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.mk-desc {
+  margin: 14px 0 0;
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--text-muted);
+}
+
+.mk-lines {
+  display: flex;
+  flex-direction: column;
+  margin-top: 14px;
+}
+
+.mk-line {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 9px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  font-size: 14px;
+}
+
+.mk-line:last-child {
+  border-bottom: 0;
+}
+
+.mk-line span {
+  color: var(--text-muted);
+}
+
+.mk-line b {
+  font-weight: 400;
+}
+
+.mk-line.strong b {
+  font-size: 17px;
+}
+
+.mk-label {
+  display: block;
+  margin-top: 16px;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.mk-stepper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.mk-stepper button {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: transparent;
+  color: var(--text);
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.mk-stepper input {
+  flex: 1;
+  min-width: 0;
+  height: 40px;
+  padding: 0 16px;
+  text-align: center;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: #0b090c;
+  color: var(--text);
+  font-size: 16px;
+}
+
+.mk-block {
+  margin: 12px 0 0;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--down);
+}
+
+.mk-block a {
+  color: var(--accent);
+}
+
+.mk-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.mk-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 220px;
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.mk-empty b {
+  color: var(--text);
+  font-weight: 400;
+  font-size: 15px;
+}
+
+.mk-empty span {
+  max-width: 260px;
+}
+
+@media (max-width: 1100px) {
+  .mk-grid {
+    grid-template-columns: 1fr;
+  }
+  .mk-panel {
+    position: static;
+  }
+}
