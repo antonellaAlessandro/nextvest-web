@@ -10,6 +10,7 @@ import Glossary from "./pages/Glossary.jsx";
 import Profile from "./pages/Profile.jsx";
 import Portfolio from "./pages/Portfolio.jsx";
 import Activity from "./pages/Activity.jsx";
+import Admin from "./pages/Admin.jsx";
 
 // Pantalla provisoria para las secciones que todavía no están armadas.
 function Placeholder({ title }) {
@@ -37,6 +38,7 @@ export default function App() {
         <Route path="cartera" element={<Portfolio />} />
         <Route path="perfil" element={<Profile />} />
         <Route path="glosario" element={<Glossary />} />
+        <Route path="admin" element={<Admin />} />
       </Route>
 
       <Route path="*" element={<Placeholder title="Página no encontrada" />} />

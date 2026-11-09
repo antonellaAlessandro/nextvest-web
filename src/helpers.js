@@ -59,3 +59,7 @@ export function normalizePosition(p) {
     change: cost > 0 ? ((value - cost) / cost) * 100 : null,
   };
 }
+
+// El rol viene en los datos del usuario (por ejemplo "ADMIN"). Solo se usa para mostrar u ocultar el panel;
+// la protección real de /api/admin la hace el backend.
+export const isAdmin = (user) => String(user?.role ?? "").toUpperCase().includes("ADMIN");

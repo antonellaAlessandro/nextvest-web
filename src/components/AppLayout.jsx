@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { NavLink, Navigate, Outlet, useLocation, useNavigate } from "react-router-dom";
 import { request, getSession, logout } from "../http.js";
 import LegalNote from "./LegalNote.jsx";
+import { isAdmin } from "../helpers.js";
 import "./AppLayout.css";
 
 const ICONS = {
@@ -11,6 +12,7 @@ const ICONS = {
   actividad: "M4 6h16M4 12h16M4 18h10",
   perfil: "M12 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8zM4 21a8 8 0 0 1 16 0",
   glosario: "M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2zM4 21V5M9 8h6",
+  admin: "M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6zM9 12l2 2 4-4",
   salir: "M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9",
 };
 
@@ -31,16 +33,20 @@ const NAV = [
   { to: "/app/glosario", label: "Glosario", icon: "glosario" },
 ];
 
+const ADMIN_ITEM = { to: "/app/admin", label: "Administración", icon: "admin" };
+
 const TITLES = {
   "/app/cartera": "Cartera",
   "/app/mercado": "Mercado",
   "/app/actividad": "Actividad",
   "/app/perfil": "Perfil de inversor",
   "/app/glosario": "Glosario",
+  "/app/admin": "Administración",
 };
 
 const SUBTITLES = {
   "/app/glosario": "Palabras que aparecen en NextVest, explicadas en simple",
+  "/app/admin": "Cuentas de usuarios",
 };
 
 function capitalize(s) {
@@ -103,6 +109,7 @@ export default function AppLayout() {
   if (!token || !session) return <Navigate to="/login" replace />;
   if (session.accountStatus !== "ACTIVA") return <Navigate to="/pendiente" replace />;
 
+  const nav = isAdmin(user) ? [...NAV, ADMIN_ITEM] : NAV;
   const name = displayName(user, session.email);
   const isHome = location.pathname === "/app" || location.pathname === "/app/";
 
@@ -129,7 +136,7 @@ export default function AppLayout() {
         </div>
 
         <nav className="app-nav">
-          {NAV.map((n) => (
+          {nav.map((n) => (
             <NavLink key={n.to} to={n.to} end={n.end} className={({ isActive }) => (isActive ? "on" : "")}>
               <Icon name={n.icon} />
               {n.label}
