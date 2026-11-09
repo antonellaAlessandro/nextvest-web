@@ -112,7 +112,11 @@ export default function AppLayout() {
   if (!token || !session) return <Navigate to="/login" replace />;
   if (session.accountStatus !== "ACTIVA") return <Navigate to="/pendiente" replace />;
 
-  const nav = admin ? [...NAV, ADMIN_ITEM] : NAV;
+  const nav = admin ? [ADMIN_ITEM] : NAV;
+  // El admin no opera: solo ve el panel.
+  if (ready && admin && location.pathname.replace(/\/$/, "") !== "/app/admin") {
+    return <Navigate to="/app/admin" replace />;
+  }
   const name = displayName(user, session.email);
   const isHome = location.pathname === "/app" || location.pathname === "/app/";
 
@@ -177,7 +181,7 @@ export default function AppLayout() {
             <div className="app-av">{name ? name.charAt(0) : "?"}</div>
             <div>
               <b>{name}</b>
-              <span>{ready ? profileLabel(profile) : " "}</span>
+              <span>{ready ? (admin ? "Administrador" : profileLabel(profile)) : " "}</span>
             </div>
           </div>
         </header>
