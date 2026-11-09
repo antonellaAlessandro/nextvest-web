@@ -1,0 +1,31 @@
+.gl-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 16px;
+  padding: 3px;
+}
+
+.gl-term {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 18px 22px;
+}
+
+.gl-term h2 {
+  margin: 0 0 6px;
+  font-size: 17px;
+  font-weight: 400;
+}
+
+.gl-term p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--text-muted);
+}
+
+.gl-hl {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 1px var(--accent), 0 0 28px rgba(217, 168, 212, 0.35);
+}

@@ -1,0 +1,7 @@
+.legal-note {
+  margin: 0;
+  padding: 8px 0 2px;
+  text-align: center;
+  font-size: 13px;
+  color: var(--text-muted);
+}

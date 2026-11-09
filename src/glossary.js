@@ -1,0 +1,45 @@
+// Lista única de términos. Se usa en la zona privada y, más adelante, en la pública.
+// Para agregar uno nuevo, sumá un objeto con id (sin espacios ni tildes), term y def.
+
+export const GLOSSARY = [
+  {
+    id: "accion",
+    term: "Acción",
+    def: "Una parte muy chica de una empresa. Si comprás una acción, sos dueño de una porción de esa empresa. Su precio sube y baja según cómo le va y qué espera el mercado.",
+  },
+  {
+    id: "cartera",
+    term: "Cartera",
+    def: "El conjunto de todos los instrumentos que tenés. Su valor es la suma de lo que vale hoy cada uno.",
+  },
+  {
+    id: "cedear",
+    term: "CEDEAR",
+    def: "Un certificado que representa una acción de una empresa del exterior, como Apple, y que se compra en pesos en el mercado argentino.",
+  },
+  {
+    id: "etf",
+    term: "ETF",
+    def: "Un fondo que reúne muchos activos y se compra como si fuera una sola acción. Por ejemplo, SPY sigue a las 500 empresas más grandes de Estados Unidos.",
+  },
+  {
+    id: "perfil",
+    term: "Perfil de inversor",
+    def: "El resultado de un test corto que indica cuánto riesgo estás dispuesto a asumir. NextVest lo usa para avisarte cuando un instrumento no corresponde a tu perfil.",
+  },
+  {
+    id: "saldo",
+    term: "Saldo disponible",
+    def: "El dinero virtual que tenés libre para comprar. Baja cuando comprás y sube cuando vendés.",
+  },
+  {
+    id: "ticker",
+    term: "Ticker",
+    def: "El código corto que identifica a un instrumento. Por ejemplo, AAPL es el de Apple.",
+  },
+  {
+    id: "variacion",
+    term: "Variación",
+    def: "Cuánto subió o bajó el precio, en porcentaje, respecto del período de comparación. Verde indica suba y rojo indica baja.",
+  },
+];
