@@ -153,3 +153,22 @@
     grid-template-columns: 1fr;
   }
 }
+
+.form-section {
+  margin-top: 6px;
+  padding-top: 18px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.form-section h2 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.form-section p {
+  margin: 4px 0 0;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--text-muted);
+}

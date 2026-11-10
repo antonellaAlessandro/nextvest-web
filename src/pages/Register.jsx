@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import AuthLayout from "../components/AuthLayout.jsx";
 import { api } from "../api.js";
+import { saveSession, logout } from "../auth.js";
+import { request } from "../http.js";
 
 function ageFrom(dateString) {
   const birth = new Date(dateString);
@@ -21,6 +23,10 @@ const EMPTY = {
   email: "",
   password: "",
   confirm: "",
+  repName: "",
+  repLastName: "",
+  repDni: "",
+  repEmail: "",
 };
 
 export default function Register() {
@@ -40,6 +46,12 @@ export default function Register() {
     if (!/^\S+@\S+\.\S+$/.test(form.email.trim())) return "Ingresá un correo electrónico válido.";
     if (form.password.length < 8) return "La contraseña tiene que tener al menos 8 caracteres.";
     if (form.password !== form.confirm) return "Las contraseñas no coinciden.";
+    if (!form.repName.trim() || !form.repLastName.trim()) return "Completá el nombre y el apellido del representante legal.";
+    if (!/^\d{7,8}$/.test(form.repDni.trim())) return "El DNI del representante tiene que tener 7 u 8 números, sin puntos.";
+    if (!/^\S+@\S+\.\S+$/.test(form.repEmail.trim())) return "Ingresá un correo válido para el representante legal.";
+    if (form.repEmail.trim().toLowerCase() === form.email.trim().toLowerCase())
+      return "El correo del representante tiene que ser distinto del tuyo.";
+    if (form.repDni.trim() === form.dni.trim()) return "El DNI del representante tiene que ser distinto del tuyo.";
     return "";
   }
 
@@ -52,8 +64,10 @@ export default function Register() {
     }
     setError("");
     setLoading(true);
+
+    let created = null;
     try {
-      await api("/api/users/register", {
+      created = await api("/api/users/register", {
         method: "POST",
         body: {
           name: form.name.trim(),
@@ -64,9 +78,33 @@ export default function Register() {
           password: form.password,
         },
       });
+
+      // El backend guarda al representante con un pedido aparte que necesita sesión:
+      // se ingresa un instante con la cuenta recién creada y se cierra enseguida.
+      logout();
+      const session = await api("/api/users/login", {
+        method: "POST",
+        body: { email: form.email.trim(), password: form.password },
+      });
+      saveSession(session);
+      await request(`/api/authorization/user/${created.id}/representative`, {
+        method: "POST",
+        body: {
+          name: form.repName.trim(),
+          lastName: form.repLastName.trim(),
+          dni: form.repDni.trim(),
+          email: form.repEmail.trim(),
+        },
+      });
+      logout();
       navigate("/pendiente", { state: { justRegistered: true } });
     } catch (err) {
-      setError(err.message);
+      logout();
+      setError(
+        created
+          ? "Creamos tu cuenta, pero no pudimos guardar los datos del representante legal. " + err.message
+          : err.message
+      );
     } finally {
       setLoading(false);
     }
@@ -108,27 +146,43 @@ export default function Register() {
           <label htmlFor="email">Correo electrónico</label>
           <input id="email" type="email" autoComplete="email" value={form.email} onChange={set("email")} />
         </div>
-        <div className="field">
-          <label htmlFor="password">Contraseña</label>
-          <input
-            id="password"
-            type="password"
-            autoComplete="new-password"
-            value={form.password}
-            onChange={set("password")}
-          />
-          <span className="field-hint">Mínimo 8 caracteres.</span>
+        <div className="form-row">
+          <div className="field">
+            <label htmlFor="password">Contraseña</label>
+            <input id="password" type="password" autoComplete="new-password" value={form.password} onChange={set("password")} />
+            <span className="field-hint">Mínimo 8 caracteres.</span>
+          </div>
+          <div className="field">
+            <label htmlFor="confirm">Repetir contraseña</label>
+            <input id="confirm" type="password" autoComplete="new-password" value={form.confirm} onChange={set("confirm")} />
+          </div>
         </div>
-        <div className="field">
-          <label htmlFor="confirm">Repetir contraseña</label>
-          <input
-            id="confirm"
-            type="password"
-            autoComplete="new-password"
-            value={form.confirm}
-            onChange={set("confirm")}
-          />
+
+        <div className="form-section">
+          <h2>Representante legal</h2>
+          <p>Es quien autoriza tu cuenta. Va a recibir un link para aprobarla o rechazarla.</p>
         </div>
+        <div className="form-row">
+          <div className="field">
+            <label htmlFor="repName">Nombre</label>
+            <input id="repName" value={form.repName} onChange={set("repName")} />
+          </div>
+          <div className="field">
+            <label htmlFor="repLastName">Apellido</label>
+            <input id="repLastName" value={form.repLastName} onChange={set("repLastName")} />
+          </div>
+        </div>
+        <div className="form-row">
+          <div className="field">
+            <label htmlFor="repDni">DNI</label>
+            <input id="repDni" inputMode="numeric" value={form.repDni} onChange={set("repDni")} />
+          </div>
+          <div className="field">
+            <label htmlFor="repEmail">Correo electrónico</label>
+            <input id="repEmail" type="email" value={form.repEmail} onChange={set("repEmail")} />
+          </div>
+        </div>
+
         <button type="submit" className="btn btn-primary" disabled={loading}>
           {loading ? "Creando cuenta..." : "Creá tu cuenta"}
         </button>

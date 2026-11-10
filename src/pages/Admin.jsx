@@ -65,6 +65,9 @@ export default function Admin() {
   const [confirming, setConfirming] = useState(null);
   const [saving, setSaving] = useState(false);
   const [actionError, setActionError] = useState("");
+  const [link, setLink] = useState(null);
+  const [linking, setLinking] = useState(false);
+  const [copied, setCopied] = useState(false);
 
 
   useEffect(() => {
@@ -86,6 +89,8 @@ export default function Admin() {
     setDetail(null);
     setConfirming(null);
     setActionError("");
+    setLink(null);
+    setCopied(false);
     setDetailLoading(true);
     try {
       setDetail(await request(`/api/admin/users/${id}`));
@@ -111,6 +116,29 @@ export default function Admin() {
       setActionError(e.message);
     } finally {
       setSaving(false);
+    }
+  }
+
+  async function generateLink() {
+    setLinking(true);
+    setActionError("");
+    setCopied(false);
+    try {
+      const res = await request(`/api/authorization/user/${selectedId}/token`, { method: "POST" });
+      setLink({ url: `${window.location.origin}/autorizar/${res.uuid}`, expiration: res.expiration });
+    } catch (e) {
+      setActionError(e.message);
+    } finally {
+      setLinking(false);
+    }
+  }
+
+  async function copyLink() {
+    try {
+      await navigator.clipboard.writeText(link.url);
+      setCopied(true);
+    } catch {
+      setCopied(false);
     }
   }
 
@@ -235,6 +263,40 @@ export default function Admin() {
                         {a.label}
                       </button>
                     ))}
+                  </div>
+                )}
+
+                {detail.accountStatus === "PENDIENTE" && !isSelf && (
+                  <div className="ad-link">
+                    <h4>Link de autorización</h4>
+                    {!rep ? (
+                      <p className="ad-muted">La cuenta no tiene un representante legal cargado.</p>
+                    ) : link ? (
+                      <>
+                        <input className="ad-link-input" readOnly value={link.url} onFocus={(e) => e.target.select()} aria-label="Link de autorización" />
+                        <div className="ad-actions">
+                          <button type="button" className="btn btn-primary" onClick={copyLink}>
+                            {copied ? "Copiado" : "Copiar link"}
+                          </button>
+                          <button type="button" className="btn btn-ghost" disabled={linking} onClick={generateLink}>
+                            Generar otro
+                          </button>
+                        </div>
+                        <p className="ad-muted">
+                          Vence el {new Date(link.expiration).toLocaleString("es-AR", { day: "numeric", month: "long", hour: "2-digit", minute: "2-digit" })}.
+                          Hacéselo llegar al representante: {rep.email}.
+                        </p>
+                      </>
+                    ) : (
+                      <>
+                        <p className="ad-muted">Generá un link para que el representante autorice o rechace la cuenta.</p>
+                        <div className="ad-actions">
+                          <button type="button" className="btn btn-ghost" disabled={linking} onClick={generateLink}>
+                            {linking ? "Generando…" : "Generar link"}
+                          </button>
+                        </div>
+                      </>
+                    )}
                   </div>
                 )}
 

@@ -183,9 +183,9 @@ function GuardianCard({ userId }) {
 
   useEffect(() => {
     let alive = true;
-    request(`/api/users/${userId}/legal-representative`)
+    request(`/api/authorization/user/${userId}/representative`)
       .then((d) => alive && setRep(d ?? null))
-      .catch(() => alive && setRep(null));
+      .catch((e) => alive && setRep(e.status === 404 ? "none" : null));
     return () => {
       alive = false;
     };
@@ -195,8 +195,9 @@ function GuardianCard({ userId }) {
     <section className="ac-card">
       <h3>Representante legal</h3>
       {rep === undefined && <p className="ac-muted">Cargando…</p>}
+      {rep === "none" && <p className="ac-muted">Todavía no hay un representante legal cargado.</p>}
       {rep === null && <p className="ac-muted">No pudimos mostrar los datos del representante legal.</p>}
-      {rep && (
+      {rep && rep !== "none" && (
         <div className="ac-lines">
           <Line label="Nombre" value={`${rep.name ?? ""} ${rep.lastName ?? ""}`.trim()} />
           <Line label="Correo electrónico" value={rep.email} />

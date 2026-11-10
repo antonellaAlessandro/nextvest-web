@@ -14,6 +14,7 @@ import Admin from "./pages/Admin.jsx";
 import Account from "./pages/Account.jsx";
 import Legal from "./pages/Legal.jsx";
 import Instrument from "./pages/Instrument.jsx";
+import Authorize from "./pages/Authorize.jsx";
 
 // Pantalla provisoria para las secciones que todavía no están armadas.
 function Placeholder({ title }) {
@@ -32,6 +33,7 @@ export default function App() {
       <Route path="/login" element={<Login />} />
       <Route path="/registro" element={<Register />} />
       <Route path="/pendiente" element={<Pending />} />
+      <Route path="/autorizar/:uuid" element={<Authorize />} />
       <Route path="/terminos" element={<Legal page="terminos" />} />
       <Route path="/privacidad" element={<Legal page="privacidad" />} />
       <Route path="/contacto" element={<Legal page="contacto" />} />
