@@ -41,7 +41,7 @@
   font-weight: 400;
 }
 
-/* Valor de la cartera */
+/* Valor del portafolio */
 .dash-total {
   grid-column: 1;
   grid-row: 1;
@@ -164,7 +164,7 @@
   border-color: rgba(255, 255, 255, 0.14);
 }
 
-/* Mercado y cartera */
+/* Mercado y portafolio */
 .dash-watch {
   grid-column: 2;
   grid-row: 1 / 3;

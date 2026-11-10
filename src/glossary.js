@@ -8,19 +8,19 @@ export const GLOSSARY = [
     def: "Una parte muy chica de una empresa. Si comprás una acción, sos dueño de una porción de esa empresa. Su precio sube y baja según cómo le va y qué espera el mercado.",
   },
   {
-    id: "cartera",
-    term: "Cartera",
+    id: "bono",
+    term: "Bono",
+    def: "Un préstamo que le hacés a un gobierno o a una empresa. A cambio, te devuelven el dinero en una fecha acordada y, en general, te pagan intereses mientras tanto.",
+  },
+  {
+    id: "portafolio",
+    term: "Portafolio",
     def: "El conjunto de todos los instrumentos que tenés. Su valor es la suma de lo que vale hoy cada uno.",
   },
   {
     id: "cedear",
     term: "CEDEAR",
     def: "Un certificado que representa una acción de una empresa del exterior, como Apple, y que se compra en pesos en el mercado argentino.",
-  },
-  {
-    id: "etf",
-    term: "ETF",
-    def: "Un fondo que reúne muchos activos y se compra como si fuera una sola acción. Por ejemplo, SPY sigue a las 500 empresas más grandes de Estados Unidos.",
   },
   {
     id: "fci",

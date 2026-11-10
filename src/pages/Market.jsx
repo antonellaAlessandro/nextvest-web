@@ -13,6 +13,14 @@ import {
 } from "../helpers.js";
 import "./Market.css";
 
+const TYPE_FILTERS = [
+  { key: "ALL", label: "Todos" },
+  { key: "Acción", label: "Acciones" },
+  { key: "Bono", label: "Bonos" },
+  { key: "CEDEAR", label: "CEDEARs" },
+  { key: "FCI", label: "FCI" },
+];
+
 const rank = (type) => PROFILE_RANK[type] ?? 0;
 
 function Line({ label, value, strong }) {
@@ -98,7 +106,7 @@ function OrderPanel({ mode, target, balance, profile, userId, onDone, onClose })
             {isBuy ? (
               <Line label="Saldo disponible" value={money(balance)} />
             ) : (
-              <Line label="Unidades en cartera" value={target.held} />
+              <Line label="Unidades en portafolio" value={target.held} />
             )}
           </div>
 
@@ -188,6 +196,7 @@ export default function Market() {
   const [balance, setBalance] = useState(0);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [typeFilter, setTypeFilter] = useState("ALL");
 
   async function load() {
     const [m, p, w] = await Promise.allSettled([
@@ -239,6 +248,8 @@ export default function Market() {
     }
   }
 
+  const visible = instruments.filter((i) => typeFilter === "ALL" || i.type?.label === typeFilter);
+
   const choose = (ins, accion) => setParams({ instrumento: ins.id, accion });
   const close = () => setParams({});
 
@@ -252,9 +263,24 @@ export default function Market() {
         <section className="mk-card">
           <h3>Instrumentos disponibles</h3>
 
-          {instruments.length === 0 && <p className="mk-muted">No hay instrumentos para mostrar.</p>}
+          <div className="mk-seg" role="tablist" aria-label="Filtrar por tipo">
+            {TYPE_FILTERS.map((f) => (
+              <button
+                key={f.key}
+                type="button"
+                role="tab"
+                aria-selected={typeFilter === f.key}
+                className={typeFilter === f.key ? "on" : ""}
+                onClick={() => setTypeFilter(f.key)}
+              >
+                {f.label}
+              </button>
+            ))}
+          </div>
 
-          {instruments.map((i) => {
+          {visible.length === 0 && <p className="mk-muted">No hay instrumentos para mostrar.</p>}
+
+          {visible.map((i) => {
             const held = heldOf(i.ticker);
             const selected = target && target.ticker === i.ticker;
             return (

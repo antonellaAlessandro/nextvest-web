@@ -5,7 +5,7 @@ import Term from "../components/Term.jsx";
 import { money, pct, tone, asList, initials, normalizeInstrument, normalizePosition } from "../helpers.js";
 import "./Dashboard.css";
 
-/* El backend todavía no guarda historial de la cartera.
+/* El backend todavía no guarda historial del portafolio.
    Mientras tanto, el gráfico usa datos de ejemplo y lo aclara en pantalla.
    Pasalo a false para mostrar el estado vacío. */
 const SHOW_DEMO_CHART = true;
@@ -36,7 +36,7 @@ function EvolutionChart() {
 
   return (
     <div className="dash-chart">
-      <svg viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="none" role="img" aria-label="Evolución de la cartera, datos de ejemplo">
+      <svg viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="none" role="img" aria-label="Evolución del portafolio, datos de ejemplo">
         <defs>
           <linearGradient id="dashArea" x1="0" y1="0" x2="0" y2="1">
             <stop offset="0" stopColor="#d9a8d4" stopOpacity=".45" />
@@ -150,9 +150,9 @@ export default function Dashboard() {
       {error && <div className="dash-error" role="alert">{error}</div>}
 
       <div className="dash-grid">
-        {/* Valor de la cartera */}
+        {/* Valor del portafolio */}
         <section className="dash-card dash-total">
-          <h3>Valor de la <Term id="cartera">cartera</Term></h3>
+          <h3>Valor del <Term id="portafolio">portafolio</Term></h3>
           <div className="dash-amt num">{money(totalValue)}</div>
           {positions.length === 0 ? (
             <div className="dash-delta dash-muted">Todavía no tenés inversiones</div>
@@ -232,12 +232,12 @@ export default function Dashboard() {
           {hasProfile && <Link className="dash-more" to="/app/mercado">Ver mercado completo</Link>}
         </section>
 
-        {/* Mi cartera */}
+        {/* Mi portafolio */}
         <section className="dash-card dash-port">
-          <h3>Mi cartera</h3>
+          <h3>Mi portafolio</h3>
           {shownPositions.length === 0 ? (
             <div className="dash-empty">
-              <b>Tu cartera está vacía</b>
+              <b>Tu portafolio está vacío</b>
               <span>Cuando hagas tu primera compra, tus instrumentos van a aparecer acá.</span>
             </div>
           ) : (
@@ -256,7 +256,7 @@ export default function Dashboard() {
                   <Link className="dash-act" to={`/app/mercado?${p.instrumentId ? `instrumento=${p.instrumentId}` : `ticker=${p.ticker}`}&accion=vender`}>Vender</Link>
                 </div>
               ))}
-              <Link className="dash-more" to="/app/cartera">Ver cartera completa</Link>
+              <Link className="dash-more" to="/app/portafolio">Ver portafolio completo</Link>
             </>
           )}
         </section>
@@ -265,7 +265,7 @@ export default function Dashboard() {
       {/* Evolución */}
       <section className="dash-card dash-perf">
         <div className="dash-perf-head">
-          <h3>Evolución de la cartera</h3>
+          <h3>Evolución del portafolio</h3>
           {positions.length > 0 && SHOW_DEMO_CHART && <small>Datos de ejemplo</small>}
         </div>
         {positions.length > 0 && SHOW_DEMO_CHART ? (

@@ -88,7 +88,7 @@ export default function Portfolio() {
 
       {positions.length === 0 ? (
         <section className="po-card po-empty">
-          <b>Tu cartera está vacía</b>
+          <b>Tu portafolio está vacío</b>
           <span>Cuando hagas tu primera compra, tus instrumentos van a aparecer acá.</span>
           <Link to="/app/mercado" className="btn btn-primary">Ir al mercado</Link>
         </section>
@@ -97,7 +97,7 @@ export default function Portfolio() {
           <section className="po-card">
             <div className="po-head">
               <div>
-                <h3>Mi cartera</h3>
+                <h3>Mi portafolio</h3>
                 <p className="po-muted">Valor total</p>
               </div>
               <div className="po-total">

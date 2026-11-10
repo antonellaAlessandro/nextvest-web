@@ -35,7 +35,7 @@ const QUESTIONS = [
     ],
   },
   {
-    text: "¿Cómo te sentís al ver que el valor de tu cartera sube y baja todos los días?",
+    text: "¿Cómo te sentís al ver que el valor de tu portafolio sube y baja todos los días?",
     options: [
       { value: "A", label: "Me pone nervioso." },
       { value: "B", label: "Lo tomo con calma: es parte de invertir." },

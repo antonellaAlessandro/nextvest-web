@@ -6,7 +6,7 @@ import "./AppLayout.css";
 
 const ICONS = {
   inicio: "M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18zM12 3v9l6 4",
-  cartera: "M4 11a3 3 0 0 1 3-3h10a3 3 0 0 1 3 3v6a3 3 0 0 1-3 3H7a3 3 0 0 1-3-3zM9 8V6a3 3 0 0 1 6 0v2",
+  portafolio: "M4 11a3 3 0 0 1 3-3h10a3 3 0 0 1 3 3v6a3 3 0 0 1-3 3H7a3 3 0 0 1-3-3zM9 8V6a3 3 0 0 1 6 0v2",
   mercado: "M4 19V9M10 19V5M16 19v-8M22 19H2",
   actividad: "M4 6h16M4 12h16M4 18h10",
   perfil: "M12 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8zM4 21a8 8 0 0 1 16 0",
@@ -25,7 +25,7 @@ function Icon({ name }) {
 
 const NAV = [
   { to: "/app", label: "Inicio", icon: "inicio", end: true },
-  { to: "/app/cartera", label: "Cartera", icon: "cartera" },
+  { to: "/app/portafolio", label: "Portafolio", icon: "portafolio" },
   { to: "/app/mercado", label: "Mercado", icon: "mercado" },
   { to: "/app/actividad", label: "Actividad", icon: "actividad" },
   { to: "/app/perfil", label: "Perfil de inversor", icon: "perfil" },
@@ -35,7 +35,7 @@ const NAV = [
 const ADMIN_ITEM = { to: "/app/admin", label: "Administración", icon: "admin" };
 
 const TITLES = {
-  "/app/cartera": "Cartera",
+  "/app/portafolio": "Portafolio",
   "/app/mercado": "Mercado",
   "/app/actividad": "Actividad",
   "/app/perfil": "Perfil de inversor",
@@ -167,7 +167,7 @@ export default function AppLayout() {
                 <h1>
                   Hola, <em>{name}</em>
                 </h1>
-                <p>Resumen de tu cartera</p>
+                <p>Resumen de tu portafolio</p>
               </>
             ) : (
               <>
