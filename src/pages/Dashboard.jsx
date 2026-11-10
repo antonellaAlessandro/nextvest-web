@@ -199,10 +199,10 @@ export default function Dashboard() {
             <div className="dash-step">
               <span className="dash-n">1</span>
               <span className="dash-step-tx">Test de <Term id="perfil">perfil de inversor</Term></span>
-              <Link to="/app/perfil" className="btn btn-primary dash-sm">Hacer el test</Link>
             </div>
             <div className="dash-step off"><span className="dash-n">2</span><span className="dash-step-tx">Cargar saldo</span></div>
             <div className="dash-step off"><span className="dash-n">3</span><span className="dash-step-tx">Primera compra</span></div>
+            <Link to="/app/perfil" className="btn btn-primary dash-start">Hacer el test</Link>
           </section>
         )}
 
