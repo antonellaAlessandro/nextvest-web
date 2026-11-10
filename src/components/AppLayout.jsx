@@ -12,6 +12,7 @@ const ICONS = {
   perfil: "M12 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8zM4 21a8 8 0 0 1 16 0",
   glosario: "M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2zM4 21V5M9 8h6",
   admin: "M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6zM9 12l2 2 4-4",
+  cuenta: "M3 6h18v12H3zM8 11a2 2 0 1 0 0-4 2 2 0 0 0 0 4zM5 16a3 3 0 0 1 6 0M14 10h4M14 14h4",
   salir: "M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9",
 };
 
@@ -29,6 +30,7 @@ const NAV = [
   { to: "/app/mercado", label: "Mercado", icon: "mercado" },
   { to: "/app/actividad", label: "Actividad", icon: "actividad" },
   { to: "/app/perfil", label: "Perfil de inversor", icon: "perfil" },
+  { to: "/app/cuenta", label: "Mi cuenta", icon: "cuenta" },
   { to: "/app/glosario", label: "Glosario", icon: "glosario" },
 ];
 
@@ -39,6 +41,7 @@ const TITLES = {
   "/app/mercado": "Mercado",
   "/app/actividad": "Actividad",
   "/app/perfil": "Perfil de inversor",
+  "/app/cuenta": "Mi cuenta",
   "/app/glosario": "Glosario",
   "/app/admin": "Administración",
 };
@@ -46,6 +49,7 @@ const TITLES = {
 const SUBTITLES = {
   "/app/glosario": "Palabras que aparecen en NextVest, explicadas en simple",
   "/app/admin": "Cuentas de usuarios",
+  "/app/cuenta": "Tus datos, tu contraseña y tu perfil de inversor",
 };
 
 function capitalize(s) {
@@ -121,6 +125,14 @@ export default function AppLayout() {
   const isHome = location.pathname === "/app" || location.pathname === "/app/";
 
   // Se llama después del test para que toda la app vea el perfil nuevo.
+  async function reloadUser() {
+    try {
+      setUser(await request(`/api/users/${session.id}`));
+    } catch {
+      /* se mantiene el dato anterior */
+    }
+  }
+
   async function reloadProfile() {
     try {
       setProfile(await request(`/api/risk-profiles/user/${session.id}`));
@@ -186,7 +198,7 @@ export default function AppLayout() {
           </div>
         </header>
 
-        {ready ? <Outlet context={{ user, profile, admin, reloadProfile }} /> : <p className="app-loading">Cargando…</p>}
+        {ready ? <Outlet context={{ user, profile, admin, reloadProfile, reloadUser }} /> : <p className="app-loading">Cargando…</p>}
 
         <LegalNote />
       </section>

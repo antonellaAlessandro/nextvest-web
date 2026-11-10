@@ -11,6 +11,7 @@ import Profile from "./pages/Profile.jsx";
 import Portfolio from "./pages/Portfolio.jsx";
 import Activity from "./pages/Activity.jsx";
 import Admin from "./pages/Admin.jsx";
+import Account from "./pages/Account.jsx";
 import Legal from "./pages/Legal.jsx";
 import Instrument from "./pages/Instrument.jsx";
 
@@ -42,6 +43,7 @@ export default function App() {
         <Route path="actividad" element={<Activity />} />
         <Route path="portafolio" element={<Portfolio />} />
         <Route path="perfil" element={<Profile />} />
+        <Route path="cuenta" element={<Account />} />
         <Route path="glosario" element={<Glossary />} />
         <Route path="admin" element={<Admin />} />
       </Route>
