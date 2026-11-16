@@ -22,6 +22,7 @@ const TYPE_LABEL = {
   CEDEAR: { label: "CEDEAR", term: "cedear" },
   ETF: { label: "ETF", term: "etf" },
   FCI: { label: "FCI", term: "fci" },
+  BOND: { label: "Bono", term: "bono" },
 };
 
 export function typeInfo(raw) {
