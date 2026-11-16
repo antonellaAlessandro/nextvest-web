@@ -158,7 +158,8 @@ export default function Dashboard() {
             <div className="dash-delta dash-muted">Todavía no tenés inversiones</div>
           ) : totalGain !== null ? (
             <div className={`dash-delta num ${tone(totalGain)}`}>
-              {totalGain < 0 ? "− " : totalGain > 0 ? "+ " : ""}{money(Math.abs(totalGain))} &nbsp;·&nbsp; {pct(totalPct)}
+              <div>{totalGain < 0 ? "− " : totalGain > 0 ? "+ " : ""}{money(Math.abs(totalGain))}</div>
+              <div>{pct(totalPct)}</div>
             </div>
           ) : null}
         </section>
@@ -220,7 +221,10 @@ export default function Dashboard() {
                   {i.name}
                 </span>
               </div>
-              <div className="dash-pv"><b className="num">{money(i.price)}</b></div>
+              <div className="dash-pv">
+                <b className="num">{money(i.price)}</b>
+                {i.change != null && <span className={`num ${tone(i.change)}`}>{pct(i.change)}</span>}
+              </div>
               {hasProfile ? (
                 <Link className="dash-act buy" to={`/app/mercado?instrumento=${i.id}&accion=comprar`}>Comprar</Link>
               ) : (

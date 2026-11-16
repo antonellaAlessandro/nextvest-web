@@ -4,6 +4,8 @@ import { request, getSession } from "../http.js";
 import Term from "../components/Term.jsx";
 import {
   money,
+  pct,
+  tone,
   asList,
   initials,
   normalizeInstrument,
@@ -293,7 +295,10 @@ export default function Market() {
                     {i.name}
                   </span>
                 </div>
-                <div className="mk-price num">{money(i.price)}</div>
+                <div className="mk-price num">
+                  {money(i.price)}
+                  {i.change != null && <span className={`mk-chg ${tone(i.change)}`}>{pct(i.change)}</span>}
+                </div>
                 <button type="button" className="mk-act buy" onClick={() => choose(i, "comprar")}>Comprar</button>
                 {held > 0 && (
                   <button type="button" className="mk-act" onClick={() => choose(i, "vender")}>Vender</button>

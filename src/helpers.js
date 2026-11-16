@@ -20,7 +20,6 @@ const TYPE_LABEL = {
   STOCK: { label: "Acción", term: "accion" },
   ACCION: { label: "Acción", term: "accion" },
   CEDEAR: { label: "CEDEAR", term: "cedear" },
-  ETF: { label: "ETF", term: "etf" },
   FCI: { label: "FCI", term: "fci" },
   BOND: { label: "Bono", term: "bono" },
 };
@@ -37,6 +36,7 @@ export function normalizeInstrument(i) {
     name: i.name ?? "",
     type: typeInfo(i.type),
     price: Number(i.currentPrice ?? i.price ?? 0),
+    change: i.dailyChangePercent ?? null,
     description: i.description ?? "",
     minimumProfile: i.minimumProfile ?? "CONSERVATIVE",
   };

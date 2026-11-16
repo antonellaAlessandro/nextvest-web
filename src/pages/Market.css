@@ -319,3 +319,10 @@
   border-color: rgba(217, 168, 212, 0.6);
   color: #f3dcf0;
 }
+
+.mk-chg {
+  display: block;
+  font-size: 13px;
+  line-height: 1.3;
+  text-align: right;
+}
