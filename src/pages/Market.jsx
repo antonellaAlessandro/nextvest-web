@@ -250,7 +250,10 @@ export default function Market() {
     }
   }
 
-  const visible = instruments.filter((i) => typeFilter === "ALL" || i.type?.label === typeFilter);
+ const visible = instruments
+  .filter((i) => typeFilter === "ALL" || i.type?.label === typeFilter)
+  // Los que ya tenés en el portafolio van primero; el resto conserva su orden.
+  .sort((a, b) => (heldOf(b.ticker) > 0) - (heldOf(a.ticker) > 0));
 
   const choose = (ins, accion) => setParams({ instrumento: ins.id, accion });
   const close = () => setParams({});
